@@ -6,31 +6,12 @@ adding a new "isDone" field as a boolean. The authorization rule below
 specifies that any user authenticated via an API key can "create", "read",
 "update", and "delete" any "Idea" records.
 =========================================================================*/
-// const schema = a.schema({
-//   Idea: a
-//     .model({
-//       content: a.string(),
-//     })
-//     .authorization((allow) => [allow.publicApiKey()]),
-// });
-
-// export type Schema = ClientSchema<typeof schema>;
-
-// export const data = defineData({
-//   schema,
-//   authorizationModes: {
-//     defaultAuthorizationMode: "apiKey",
-//     // API Key is used for a.allow.public() rules
-//     apiKeyAuthorizationMode: {
-//       expiresInDays: 30,
-//     },
-//   },
-// });
-
 const schema = a.schema({
-  Idea: a.model({
-    content: a.string(),
-  }).authorization((allow) => [allow.owner()]),
+  Idea: a
+    .model({
+      content: a.string(),
+    })
+    .authorization((allow) => [allow.publicApiKey()]),
 });
 
 export type Schema = ClientSchema<typeof schema>;
@@ -38,10 +19,13 @@ export type Schema = ClientSchema<typeof schema>;
 export const data = defineData({
   schema,
   authorizationModes: {
-    defaultAuthorizationMode: 'userPool',
+    defaultAuthorizationMode: "apiKey",
+    // API Key is used for a.allow.public() rules
+    apiKeyAuthorizationMode: {
+      expiresInDays: 30,
+    },
   },
 });
-
 
 /*== STEP 2 ===============================================================
 Go to your frontend source code. From your client-side code, generate a

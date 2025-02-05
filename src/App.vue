@@ -1,34 +1,26 @@
 <template>
-  <div id="app">
-    <!-- The Amplify Authenticator component wraps your protected content.
-         It displays the login UI until the user is authenticated. -->
+  <main id="app">
     <authenticator>
-      <!-- Use the default slot props to access the current auth state -->
       <template v-slot="{ user, signOut }">
-        <!-- If the user is signed in, display the welcome message and todos -->
         <div v-if="user" class="authenticated">
           <header class="app-header">
-            <h1>Welcome, {{ user.username }}!</h1>
+            <h1>Hello {{ user?.signInDetails?.loginId }}'s ideas</h1>
             <button class="sign-out" @click="signOut">Sign Out</button>
           </header>
-          <!-- Render your Todos component -->
-          <Todos />
+          <Ideas />
         </div>
-        <!-- (Optional) You can include custom content when not authenticated
-             but by default, the Authenticator will show its own sign-in/sign-up UI -->
       </template>
     </authenticator>
-  </div>
+  </main>
 </template>
 
 <script setup lang="ts">
-import Todos from "./components/Todos.vue";
+import Ideas from "./components/Ideas.vue";
 import { Authenticator } from "@aws-amplify/ui-vue";
 import "@aws-amplify/ui-vue/styles.css";
 </script>
 
 <style scoped>
-/* Basic styling for the authenticated state */
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   text-align: center;
