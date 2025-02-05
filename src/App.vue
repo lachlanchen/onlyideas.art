@@ -5,9 +5,11 @@
         <div v-if="user" class="authenticated">
           <header class="app-header">
             <h1>Hello {{ user?.signInDetails?.loginId }}'s ideas</h1>
-            <button class="sign-out" @click="signOut">Sign Out</button>
           </header>
           <Ideas />
+          <footer class="app-footer">
+            <button class="sign-out" @click="signOut">Sign Out</button>
+          </footer>
         </div>
       </template>
     </authenticator>
@@ -27,15 +29,29 @@ import "@aws-amplify/ui-vue/styles.css";
   color: #2c3e50;
   margin: 0;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.authenticated {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1rem;
 }
 
 .app-header {
   background-color: #42b983;
   color: white;
   padding: 1rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+}
+
+.app-footer {
+  margin-top: auto;
+  padding: 1rem;
 }
 
 .sign-out {
@@ -50,11 +66,5 @@ import "@aws-amplify/ui-vue/styles.css";
 
 .sign-out:hover {
   background-color: #e0e0e0;
-}
-
-.authenticated {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 1rem;
 }
 </style>
