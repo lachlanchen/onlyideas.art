@@ -27,9 +27,30 @@ specifies that any user authenticated via an API key can "create", "read",
 //   },
 // });
 
+// const schema = a.schema({
+//   Idea: a.model({
+//     content: a.string(),
+//   }).authorization((allow) => [allow.owner()]),
+// });
+
+// export type Schema = ClientSchema<typeof schema>;
+
+// export const data = defineData({
+//   schema,
+//   authorizationModes: {
+//     defaultAuthorizationMode: 'userPool',
+//   },
+// });
+
+
+/* Define the schema with two models: Idea and Creator */
 const schema = a.schema({
   Idea: a.model({
     content: a.string(),
+  }).authorization((allow) => [allow.owner()]),
+  Creator: a.model({
+    name: a.string(),
+    bio: a.string(), // a brief biography; can be empty if not provided
   }).authorization((allow) => [allow.owner()]),
 });
 
@@ -41,6 +62,7 @@ export const data = defineData({
     defaultAuthorizationMode: 'userPool',
   },
 });
+
 
 
 /*== STEP 2 ===============================================================
